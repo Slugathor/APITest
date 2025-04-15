@@ -1,0 +1,12 @@
+---REGISTER
+curl -X POST http://localhost/testapi/register.php -H "Content-Type: application/json" -d "{\"username\": \"anotherone\", \"password\": \"safestpassword\"}"
+
+
+---LOGIN
+curl -X POST http://localhost/testapi/login.php -H "Content-Type: application/json" -d "{\"username\": \"anotherone\", \"password\": \"safestpassword\"}" -c cookies.txt
+
+
+---TEST SESSION AND ECHO USERNAME
+curl -X POST http://localhost/testapi/accinfo.php -b cookies.txt
+
+"-c cookies" to collect and "-b cookies" to send saved cookie to server. We need these to maintain session in curl
