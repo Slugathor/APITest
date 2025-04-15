@@ -24,7 +24,7 @@ switch ($method | $uri) {
 
     case($method =='GET' && preg_match('/\/testapi\/characters\/account_id\/(\d+)/', $uri, $matches)):
         $accID = intval($matches[1]); // Extract account_id from URI
-        $query = "SELECT name, level FROM characters C WHERE C.account_id = ?";
+        $query = "SELECT username, level FROM characters C WHERE C.account_id = ?";
 
         $stmt = $conn->prepare($query);
         $stmt->bind_param("i", $accID);

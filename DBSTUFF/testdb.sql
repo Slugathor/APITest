@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2025 at 10:52 AM
+-- Generation Time: Apr 15, 2025 at 05:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,17 +29,21 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `accounts` (
   `id` int(16) NOT NULL,
-  `name` varchar(16) NOT NULL
+  `username` varchar(127) NOT NULL,
+  `password_hash` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `accounts`
 --
 
-INSERT INTO `accounts` (`id`, `name`) VALUES
-(1, 'onesInNames'),
-(2, 'twosInNames'),
-(3, 'threesInNames');
+INSERT INTO `accounts` (`id`, `username`, `password_hash`) VALUES
+(1, 'onesInNames', ''),
+(2, 'twosInNames', ''),
+(3, 'threesInNames', ''),
+(7, 'myuser', '$2y$10$ovM9gCr7o8RI7KaWhZhQFuezWnredAW5dm1W2e5yDR9IbpTkYw60.'),
+(8, 'testacc2', '$2y$10$A01ium7NxWK65pSsx3QlbuSoxYdcKbU/Z3hHaHeDJ06s6ap4a9P0S'),
+(10, 'anotherone', '$2y$10$7ir4jGDPP.cQq9jRPiq9U.9r5x/k.p3THm1uC/WauqGFBJd.7XoKq');
 
 -- --------------------------------------------------------
 
@@ -77,7 +81,8 @@ INSERT INTO `characters` (`id`, `account_id`, `name`, `level`) VALUES
 -- Indexes for table `accounts`
 --
 ALTER TABLE `accounts`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`username`);
 
 --
 -- Indexes for table `characters`
@@ -93,7 +98,7 @@ ALTER TABLE `characters`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(16) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `characters`
