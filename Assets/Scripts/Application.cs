@@ -1,14 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Cache;
-using System.Xml.Serialization;
 using TMPro;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using static System.Net.WebRequestMethods;
 
 public class Application : MonoBehaviour
 {
@@ -138,13 +134,14 @@ public class Application : MonoBehaviour
                     accButtons[i].GetComponentInChildren<TMP_Text>().text = accountList.accounts[i].username;
                     accButtons[i].onClick.AddListener(() =>
                     { // Account button does all this when clicked
-                        accButtons.ForEach(button => { button.gameObject.SetActive(false); });
+                        accButtonParent.gameObject.SetActive(false);
                         selectAccText.gameObject.SetActive(false);
                         selectedAccAndCharsTexts.gameObject.SetActive(true);
+                        returnToAccListButton.gameObject.SetActive(true);    
+                        ActivateReturnToAccListButton();
                         selectedAccNameText.text = accountList.accounts[index].username;
                         selectedAccountID = accountList.accounts[index].id;
                         StartCoroutine(GetCharacters(accountList.accounts[index].id));
-                        returnToAccListButton.gameObject.SetActive(true);
                         ActivateDeleteButton();
                         accButtons.ForEach(button=>button.onClick.RemoveAllListeners());
                     });
@@ -157,7 +154,7 @@ public class Application : MonoBehaviour
 
     IEnumerator GetCharacters(int accID)
     {
-        UnityWebRequest wr = UnityWebRequest.Get(baseUrl + "characters/account_id/" + accID);
+        UnityWebRequest wr = UnityWebRequest.Get(baseUrl + "characters/" + accID);
         yield return wr.SendWebRequest();
         if (wr.result != UnityWebRequest.Result.Success)
         {
@@ -183,11 +180,6 @@ public class Application : MonoBehaviour
                 text += characterList.characters[i].name + ", level " + characterList.characters[i].level + "\n";
             }
             charListText.text = text;
-
-            if (sessionManager.GetAccountType() == 1)
-            {
-                ActivateReturnToAccListButton();
-            }
         }
     }
 
