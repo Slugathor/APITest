@@ -11,7 +11,7 @@ The backend is created with XAMPP 3.3.0
 
 HOW TO ?
 
--1. Unzip the project archive
+-1. Download the project from https://github.com/Slugathor/APITest
 
 0. Open the SERVER_RES folder
 
